@@ -1,0 +1,81 @@
+<div class="card p-0 p-4 shadow">
+  <h2 class="mb-4 mt-4 text-center font-weight-bold">Sign In</h2>
+  <div class="card-body pt-0">
+    <form [formGroup]="logInForm" autocomplete="off">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+          </div>
+          <input
+            type="email"
+            class="form-control"
+            id="username"
+            placeholder="example@example.com"
+            formControlName="email"
+            autocomplete="username"
+          />
+        </div>
+        <div *ngIf="formControls.email.touched && formControls.email.invalid">
+          <small class="text-danger" *ngIf="formControls.email.errors?.required"
+            >Email is required</small
+          >
+          <small class="text-danger" *ngIf="formControls.email.errors?.pattern"
+            >Enter a valid Email</small
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </div>
+          </div>
+          <input
+            [type]="isShowPassword ? 'text' : 'password'"
+            class="form-control"
+            id="password"
+            placeholder="Password"
+            formControlName="password"
+            autocomplete="current-password"
+          />
+          <div class="input-group-append">
+            <i
+              class="input-group-text fa"
+              [ngClass]="isShowPassword ? 'fa-eye-slash' : 'fa-eye'"
+              (click)="changeInputType()"
+              aria-hidden="true"
+              data-toggle="tooltip"
+              [title]="isShowPassword ? 'Hide password' : 'Show password'"
+            ></i>
+          </div>
+        </div>
+        <div *ngIf="formControls.password.touched && formControls.password.invalid">
+          <small class="text-danger" *ngIf="formControls.password.errors?.required"
+            >Password is required</small
+          >
+        </div>
+      </div>
+      <div class="d-flex justify-content-between mt-4">
+        <app-loading-button
+          [disabled]="logInForm.invalid"
+          [buttonText]="'Sign In'"
+          [isLoading]="isLoading"
+          [loadingText]="'Signing In'"
+          [title]="'Click to Sign in'"
+          (buttonClick)="onLogIn()"
+          [buttonIconClass]="'fas fa-sign-in-alt'"
+        >
+        </app-loading-button>
+        <a
+          class="align-self-center"
+          title="Go to forgot password page"
+          routerLink="../forgot_password"
+        >
+          Forgot password?
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
